@@ -1,0 +1,262 @@
+<title>Siapa Dalang Karhutla?</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Figtree:wght@400;500;600;700&family=JetBrains+Mono:wght@600;700&display=swap">
+<style>
+/* Layout: satu halaman "kail pancing". Hero pertanyaan, piramida 4 lapis rente, dua pola api, blind-spot deteksi, dan jawaban akhir. */
+:root{
+  --bg:#FBF6EC; --paper:#FFFFFF; --ink:#1E1A14; --muted:#746A58; --line:#E7DECB; --dot:#EFE6D4;
+  --ember:#D94A1F; --ember-soft:#FBE1D6; --smoke:#8A7B5F; --ash:#C9BFA7;
+  --l1:#2A1E12; --l2:#7A3A1F; --l3:#C27A2E; --l4:#E9B872;
+  --display:'Bricolage Grotesque',ui-rounded,'Segoe UI',system-ui,sans-serif;
+  --body:'Figtree',ui-sans-serif,'Segoe UI',system-ui,sans-serif;
+  --mono:'JetBrains Mono',ui-monospace,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#17130D; --paper:#1F1B14; --ink:#F4EDDE; --muted:#B5A98E; --line:#3A3324; --dot:#2A2518;
+  --ember:#FF6B3D; --ember-soft:#3A1A0E; --smoke:#9D8E72; --ash:#5C543F;
+  --l1:#F4EDDE; --l2:#F2A86B; --l3:#E9B872; --l4:#8A7B5F;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#17130D; --paper:#1F1B14; --ink:#F4EDDE; --muted:#B5A98E; --line:#3A3324; --dot:#2A2518;
+  --ember:#FF6B3D; --ember-soft:#3A1A0E; --smoke:#9D8E72; --ash:#5C543F;
+  --l1:#F4EDDE; --l2:#F2A86B; --l3:#E9B872; --l4:#8A7B5F;
+  color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.6;
+ background-image:radial-gradient(var(--dot) 1.3px,transparent 1.3px);background-size:28px 28px}
+.wrap{max-width:860px;margin:0 auto;padding-block:36px 72px;padding-left:max(20px,env(safe-area-inset-left,0px));padding-right:max(20px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:40px}
+h1,h2,h3{font-family:var(--display);text-wrap:balance;margin:0;line-height:1.08}
+p{margin:0}
+:focus-visible{outline:3px solid var(--ember);outline-offset:3px;border-radius:6px}
+
+/* hero */
+.hero{display:flex;flex-direction:column;gap:16px}
+.kick{font:700 12.5px var(--body);letter-spacing:.18em;text-transform:uppercase;color:var(--ember)}
+h1{font-size:clamp(44px,8vw,80px);font-weight:800;letter-spacing:-.025em}
+h1 em{font-style:normal;position:relative;color:var(--ember);white-space:nowrap}
+h1 em:after{content:"";position:absolute;left:-2%;right:-2%;bottom:4%;height:14%;background:var(--ember-soft);z-index:-1;border-radius:4px}
+.lead{font-size:19px;color:var(--muted);max-width:60ch}
+.lead b{color:var(--ink)}
+
+/* short answer */
+.ans{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:22px 26px;display:flex;flex-direction:column;gap:10px;position:relative;overflow:hidden}
+.ans:before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--ember)}
+.ans h2{font-size:28px;font-weight:800}
+.ans p{font-size:17px}
+
+/* laws */
+.laws{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px}
+.law{background:var(--paper);border:1.5px solid var(--line);border-radius:16px;padding:16px 18px;display:flex;flex-direction:column;gap:8px;min-width:0}
+.law .tag{font:700 11.5px var(--mono);letter-spacing:.08em;color:var(--ember);text-transform:uppercase}
+.law h3{font:800 18px var(--display);letter-spacing:-.01em}
+.law p{font-size:14.5px;line-height:1.5}
+.law .xc{font-size:13.5px;color:var(--muted);background:var(--bg);border-radius:10px;padding:8px 12px;line-height:1.45;border-left:3px solid var(--ash)}
+.law .xc b{color:var(--ink)}
+.controv{background:var(--ember-soft);border:2px solid var(--ember);border-radius:18px;padding:18px 22px;display:flex;flex-direction:column;gap:8px}
+.ctag{font:700 11.5px var(--mono);letter-spacing:.1em;color:var(--ember);text-transform:uppercase}
+.controv h3{font:800 22px var(--display);letter-spacing:-.01em}
+.controv p{font-size:15px;line-height:1.55}
+.controv .ctw{background:var(--paper);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:14.5px;margin-top:4px}
+
+/* section */
+.sec{display:flex;flex-direction:column;gap:18px}
+.sec h2{font-size:clamp(28px,4.5vw,40px);font-weight:800;letter-spacing:-.015em}
+.sec p.sub{color:var(--muted);max-width:60ch}
+.num{display:inline-flex;align-items:center;justify-content:center;width:40px;height:40px;background:var(--ink);color:var(--bg);font:800 20px var(--mono);border-radius:12px;margin-bottom:8px}
+
+/* pyramid */
+.pyr{display:flex;flex-direction:column;gap:3px;background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:18px;overflow:hidden}
+.lay{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;padding:14px 18px;border-radius:14px;color:#fff;position:relative}
+.lay.l1{background:var(--l1);width:35%;margin-left:auto;margin-right:auto}
+.lay.l2{background:var(--l2);width:55%;margin-left:auto;margin-right:auto}
+.lay.l3{background:var(--l3);width:75%;margin-left:auto;margin-right:auto;color:var(--l1)}
+.lay.l4{background:var(--l4);width:100%;color:var(--l1)}
+.lay h3{font:800 20px var(--display);line-height:1.15;color:inherit}
+.lay small{font:500 13.5px var(--body);opacity:.85;display:block;margin-top:3px}
+.lay .risk{font:700 11px var(--mono);letter-spacing:.08em;background:rgba(255,255,255,.18);padding:4px 9px;border-radius:999px;white-space:nowrap;color:inherit}
+.lay.l3 .risk,.lay.l4 .risk{background:rgba(42,30,18,.14)}
+.axis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px;padding:0 10px;font:600 12.5px var(--body);color:var(--muted);text-transform:uppercase;letter-spacing:.1em}
+.axis div:last-child{text-align:right}
+@media (max-width:600px){.lay.l1,.lay.l2,.lay.l3{width:100%}}
+
+/* two patterns */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.p{background:var(--paper);border:1.5px solid var(--line);border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:12px;min-width:0}
+.p .tag{font:700 11.5px var(--mono);letter-spacing:.1em;color:var(--ember);text-transform:uppercase}
+.p h3{font:800 20px var(--display);letter-spacing:-.01em}
+.flow{display:flex;flex-direction:column;gap:6px;font-size:15px}
+.flow div{background:var(--bg);border-radius:10px;padding:9px 12px;position:relative}
+.flow div+div:before{content:"↓";position:absolute;left:50%;top:-16px;transform:translateX(-50%);color:var(--ember);font-weight:700}
+.flow div:last-child{border:2px dashed var(--ember);background:var(--ember-soft)}
+.p .verdict{font-size:14px;color:var(--muted);line-height:1.5;padding-top:6px;border-top:1px solid var(--line)}
+.p .verdict b{color:var(--ink)}
+@media (max-width:600px){.two{grid-template-columns:1fr}.flow div+div:before{top:-12px}}
+
+/* blind spot */
+.blind{background:var(--paper);border:1.5px solid var(--line);border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:16px}
+.scan{position:relative;background:var(--bg);border-radius:14px;padding:18px 20px;font-size:15px}
+.scan .step{display:grid;grid-template-columns:28px 1fr auto;gap:12px;align-items:center;padding:8px 0}
+.scan .step+.step{border-top:1px dashed var(--line)}
+.scan .step i{font:800 15px var(--mono);background:var(--ash);color:var(--l1);width:28px;height:28px;display:flex;align-items:center;justify-content:center;border-radius:50%}
+.scan .step b{font-weight:700}
+.scan .step em{font:600 12px var(--mono);font-style:normal;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.scan .step.hit em{color:var(--ember)}
+.scan .step.hit i{background:var(--ember);color:#fff}
+.gap{background:var(--ember-soft);border-left:4px solid var(--ember);border-radius:10px;padding:12px 16px;font-size:15px}
+.gap b{color:var(--ember)}
+
+/* final */
+.final{background:var(--l1);color:var(--bg);border-radius:22px;padding:28px;display:flex;flex-direction:column;gap:14px}
+.final h2{font-size:clamp(28px,5vw,40px);font-weight:800;letter-spacing:-.02em;color:#fff}
+.final h2 em{font-style:normal;color:var(--l3)}
+.final p{font-size:16.5px;line-height:1.6;color:#F4EDDE}
+.final ul{list-style:none;padding:0;display:flex;flex-direction:column;gap:8px;font-size:15.5px}
+.final li{padding-left:28px;position:relative}
+.final li:before{content:"→";position:absolute;left:0;color:var(--l3);font-weight:700}
+
+.src{font-size:13.5px;color:var(--muted);display:flex;flex-direction:column;gap:5px}
+.src a{color:var(--muted);text-decoration:underline;text-decoration-color:var(--ash);text-underline-offset:3px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+
+<div class="wrap">
+
+<section class="hero">
+  <div class="kick">Kail pancing untuk audiensmu · 3 menit baca</div>
+  <h1>Siapa <em>dalang</em> karhutla?</h1>
+  <p class="lead"><b>Spoiler: bukan satu orang.</b> Ini jaringan ekonomi api, dan setiap tahun yang ditangkap selalu dari lapisan paling bawah. Panduan singkat untuk membaca sendiri siapa yang paling masuk akal jadi tersangka.</p>
+</section>
+
+<div class="ans">
+  <h2>Jawaban paling jujur</h2>
+  <p>Yang <b>menyalakan</b> api: buruh harian bayaran Rp100–200 ribu. Yang <b>untung paling besar</b>: pemodal yang tidak pernah ke lokasi. Hukum menangkap yang pertama, dan hampir tak pernah menyentuh yang terakhir.</p>
+</div>
+
+<section class="sec">
+  <div class="num">1</div>
+  <h2>Hukumnya sudah ada. Dan jelas.</h2>
+  <p class="sub">Membakar lahan untuk membuka lahan dilarang sejak 1999. <b>Untuk perusahaan: ilegal tanpa pengecualian.</b> Untuk warga: boleh dengan tiga syarat ketat.</p>
+
+  <div class="laws">
+    <div class="law">
+      <span class="tag">UU 32/2009 · PPLH</span>
+      <h3>Lingkungan Hidup</h3>
+      <p><b>Pasal 69</b>: setiap orang dilarang membuka lahan dengan cara membakar.<br><b>Pasal 108</b>: penjara 3–10 tahun + denda Rp3–10 miliar.</p>
+      <div class="xc">Pengecualian "kearifan lokal": ≤2 ha per keluarga + varietas lokal + sekat bakar. <b>Tidak berlaku untuk perusahaan.</b></div>
+    </div>
+    <div class="law">
+      <span class="tag">UU 41/1999 · Kehutanan</span>
+      <h3>Di dalam kawasan hutan</h3>
+      <p><b>Pasal 78(3)</b>, sengaja membakar: penjara maksimal <b>15 tahun</b> + denda Rp5 miliar.<br>Pasal 78(4), karena lalai: hukuman lebih ringan.</p>
+    </div>
+    <div class="law">
+      <span class="tag">UU 39/2014 · Perkebunan</span>
+      <h3>Khusus perusahaan</h3>
+      <p><b>Pasal 56</b>: pelaku usaha perkebunan dilarang membuka atau mengolah lahan dengan membakar.<br>Pengecualian 2 ha <b>tidak berlaku</b>. Perusahaan selalu ilegal membakar.</p>
+    </div>
+    <div class="law">
+      <span class="tag">Perpres 13/2018</span>
+      <h3>Beneficial Owner</h3>
+      <p>Semua PT wajib melaporkan pemilik akhir. Tapi datanya <b>tidak terbuka ke publik</b>, verifikasinya nyaris nol, dan tidak terhubung dengan data karhutla.</p>
+    </div>
+    <div class="law">
+      <span class="tag">Inpres 11/2026</span>
+      <h3>Strict Liability</h3>
+      <p>Pemegang konsesi <b>otomatis bertanggung jawab</b> atas api di lahannya — tidak perlu dibuktikan ia menyalakannya sendiri. Pintu hukum paling mudah, tapi jarang dipakai.</p>
+    </div>
+  </div>
+
+  <div class="controv">
+    <div class="ctag">Kontroversi · 24 September 2026</div>
+    <h3>Rencana cabut 8 Perda "2 hektar"</h3>
+    <p>Prabowo menyatakan akan mencabut 8 peraturan daerah yang mengizinkan pembakaran ≤2 ha, menyebutnya <i>"complete nonsense"</i> dan celah untuk pembakar skala besar.</p>
+    <p><b>Walhi menolak:</b> 2 ha itu memang sudah dibatasi UU PPLH, dan mayoritas api justru di konsesi perusahaan — bukan di ladang petani kecil. Mencabutnya akan menghukum warga, sementara perusahaan <b>sudah ilegal sejak 1999</b>.</p>
+    <p class="ctw">Inti pertengkarannya: mencabut atau mempertahankan pengecualian 2 ha <b>tidak mengubah status perusahaan</b>. Yang berubah hanya posisi warga kecil.</p>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="num">2</div>
+  <h2>Piramida ekonomi api</h2>
+  <p class="sub">Empat lapis pelaku. Semakin ke atas, semakin besar untung. Semakin ke bawah, semakin besar risiko hukum. <b>Lapisan 1 nyaris selalu lolos.</b></p>
+
+  <div class="pyr">
+    <div class="lay l1"><div><h3>1 · Pemodal</h3><small>Spekulan tanah, cukong, atau pemilik perusahaan di balik konsesi. Dapat untung terbesar.</small></div><span class="risk">0% ditangkap</span></div>
+    <div class="lay l2"><div><h3>2 · Pengorganisir lokal</h3><small>Tokoh desa, mantan aparat, atau anggota partai kabupaten. "Jembatan" pemodal ke lapangan.</small></div><span class="risk">jarang</span></div>
+    <div class="lay l3"><div><h3>3 · Oknum aparat desa</h3><small>Yang menerbitkan SKT atau surat tanah. Dapat gratifikasi dokumen per transaksi.</small></div><span class="risk">kadang</span></div>
+    <div class="lay l4"><div><h3>4 · Buruh pembakar &amp; "petani boneka"</h3><small>Yang menyalakan api, dibayar harian. Juga warga yang namanya dipinjam untuk klaim lahan.</small></div><span class="risk">paling sering ditangkap</span></div>
+    <div class="axis"><div>Untung ↑</div><div>Risiko hukum ↑</div></div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="num">3</div>
+  <h2>Dua pola api</h2>
+  <p class="sub">Pola membedakan siapa yang legally bertanggung jawab. Tidak semua api di konsesi perusahaan, dan tidak semua api di luar konsesi berarti perusahaan tidak terlibat.</p>
+
+  <div class="two">
+    <div class="p">
+      <span class="tag">Pola A · api di LUAR konsesi</span>
+      <h3>Lahan dibakar dulu, baru dijual</h3>
+      <div class="flow">
+        <div>Pemodal cari spekulan</div>
+        <div>Pengorganisir sewa buruh</div>
+        <div>Lahan warga dibakar, dipetak &lt;2 ha</div>
+        <div>Lahan "jadi" dibeli perusahaan</div>
+      </div>
+      <p class="verdict"><b>Perusahaan punya alibi:</b> "kami beli lahan bersih dari warga." Satelit tidak menandai konsesi mereka. Rante rente tetap jalan.</p>
+    </div>
+    <div class="p">
+      <span class="tag">Pola B · api di DALAM konsesi</span>
+      <h3>Perusahaan membakar sendiri</h3>
+      <div class="flow">
+        <div>Manager perusahaan</div>
+        <div>Sewa kontraktor / buruh</div>
+        <div>Api dinyalakan di konsesi</div>
+        <div>Pemadaman "formalitas"</div>
+      </div>
+      <p class="verdict"><b>Strict liability</b> berlaku: perusahaan otomatis bertanggung jawab. Deteksi mudah, tapi pembuktian "sengaja" seringkali gagal di pengadilan.</p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="num">4</div>
+  <h2>Kenapa alat deteksi KLH tidak sampai ke pemodal</h2>
+  <p class="sub">Metode resminya cuma dua langkah. Keduanya hanya menyentuh satu lapisan dari piramida di atas.</p>
+
+  <div class="blind">
+    <div class="scan">
+      <div class="step hit"><i>1</i><div><b>Satelit mendeteksi titik panas</b><br><small style="color:var(--muted);font-size:13.5px">NASA MODIS/VIIRS + sistem SIPONGI</small></div><em>Terdeteksi</em></div>
+      <div class="step hit"><i>2</i><div><b>Overlay dengan peta konsesi</b><br><small style="color:var(--muted);font-size:13.5px">Kalau titik panas di dalam konsesi → nama perusahaan muncul</small></div><em>Terdeteksi</em></div>
+      <div class="step"><i>3</i><div><b>Pelacakan pemilik akhir perusahaan</b><br><small style="color:var(--muted);font-size:13.5px">BVI, Samoa, Singapura, Hong Kong</small></div><em>Tidak dilakukan</em></div>
+      <div class="step"><i>4</i><div><b>Aliran uang pemodal → pengorganisir</b><br><small style="color:var(--muted);font-size:13.5px">Butuh PPATK, bukan KLH</small></div><em>Tidak dilakukan</em></div>
+    </div>
+    <div class="gap"><b>Blind spot:</b> metode KLH hanya efektif untuk Pola B. Pola A (api di luar konsesi) hampir pasti luput, karena titik panas tidak jatuh di peta konsesi mana pun. Padahal di sinilah 4 lapis rente paling leluasa bekerja.</div>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Jadi, siapa dalangnya? <em>Jawaban yang bisa dibagikan.</em></h2>
+  <p>Kalau audiens bertanya, jawabnya tiga lapis:</p>
+  <ul>
+    <li><b>Secara ekonomi</b> — pemodal dan spekulan tanah, yang tidak pernah di lokasi dan sulit dilacak tanpa data pemilik akhir.</li>
+    <li><b>Secara hukum</b> — perusahaan pemegang konsesi (strict liability), tapi penegakannya mentok di penyegelan, bukan pencabutan izin.</li>
+    <li><b>Secara sistemik</b> — struktur yang membuat membakar lebih murah daripada menebas, dan membuat hukum hanya bisa menangkap buruh di ujung rantai.</li>
+  </ul>
+  <p style="margin-top:6px">Yang <b>tidak</b> boleh dijawab: menyebut satu nama perusahaan atau orang sebagai "dalang" tanpa putusan pengadilan. Itu masuk ke risiko hukum pencemaran nama baik, dan juga tidak akurat secara data.</p>
+</section>
+
+<div class="src">
+  <strong style="color:var(--ink)">Sumber kunci</strong>
+  <a href="https://news.mongabay.com/2017/01/how-local-elites-earn-money-from-burning-land-in-indonesia/" target="_blank" rel="noopener">Studi CIFOR–Unri–IPB (Herry Purnomo dkk.): ekonomi api di Riau</a>
+  <a href="https://mongabay.co.id/2021/07/07/sulitnya-eksekusi-kasus-karhutla-walau-sudah-berkekuatan-hukum-tetap-mengapa/" target="_blank" rel="noopener">Mongabay: hanya 2% putusan karhutla yang tertagih</a>
+  <a href="https://katadata.co.id/ekonomi-hijau/investasi-hijau/6ad0372ca9e9b/jejak-asing-konglo-dan-afiliasi-penguasa-di-perusahaan-terindikasi-karhutla" target="_blank" rel="noopener">Katadata/Walhi: jejak asing &amp; afiliasi penguasa (14 Okt 2026)</a>
+  <a href="https://www.hukumonline.com/berita/a/melihat-pasal-pasal-penjerat-pelaku-pembakar-hutan-dan-lahan-lt5f16ba762542c/" target="_blank" rel="noopener">Hukumonline: UU 32/2009, UU 41/1999, UU 39/2014</a>
+</div>
+
+</div>
